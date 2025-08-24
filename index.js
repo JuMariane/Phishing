@@ -1,4 +1,8 @@
-// Cronometro
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("email").value = "";
+  document.getElementById("senha").value = "";
+});
+
 let tempoRestante = 10 * 60;
 const tempoSpan = document.getElementById("tempo-restante");
 const cronometro = setInterval(() => {
@@ -20,6 +24,9 @@ form.addEventListener("submit", (e) => {
   localStorage.setItem("email", email);
   localStorage.setItem("senha", senha);
 
+  document.getElementById("email").value = "";
+  document.getElementById("senha").value = "";
+  //  window.history.pushState(null, "", "scammado.html");
   // Redireciona para a página seguinte
   window.location.href = "scammado.html";
 });

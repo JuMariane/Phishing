@@ -30,6 +30,12 @@ eyeMeu.addEventListener("click", () => {
   abertoMeu = !abertoMeu;
 });
 
+const voltarBtn = document.getElementById("voltar");
+voltarBtn.addEventListener("click", () => {
+  window.history.back();
+  //reload
+});
+
 // PAGINAÇÃO
 const rowsPerPage = 10;
 let currentPage = 1;
