@@ -4,68 +4,128 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Você foi Scammado!</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
       body {
-        font-family: sans-serif;
-        background: #ff4d4d;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #ff4d4d, #ff5c5c);
         color: #fff;
-        text-align: center;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 0 auto;
         padding: 40px 20px;
       }
-      .box {
-        background: rgba(0, 0, 0, 0.5);
-        padding: 40px;
-        border-radius: 15px;
-        max-width: 900px;
-        margin: 0 auto;
-      }
+
       h1 {
         font-size: 3em;
         margin-bottom: 10px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
       }
+
       h2 {
         font-size: 2em;
+        margin-top: 40px;
         margin-bottom: 20px;
+        text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
       }
+
       p {
-        font-size: 1.3em;
-        margin: 10px 0;
+        font-size: 1.2em;
+        line-height: 1.6;
       }
-      table {
+
+      #meus-dados {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 20px 30px;
+        border-radius: 15px;
+        margin-top: 20px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      #usuarios {
         width: 100%;
         border-collapse: collapse;
         margin-top: 30px;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        overflow: hidden;
       }
+
       th,
       td {
-        border: 1px solid #fff;
+        border: 1px solid rgba(255, 255, 255, 0.6);
         padding: 12px;
-        font-size: 1.1em;
+        font-size: 1em;
       }
+
       th {
         background: rgba(255, 255, 255, 0.2);
       }
+
       td {
         text-align: center;
       }
+
       .eye-btn {
         cursor: pointer;
+        margin-left: 8px;
+        font-size: 1.2em;
+      }
+
+      .card {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 25px 30px;
+        border-radius: 15px;
+        margin-top: 40px;
+        font-size: 1.4em;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      .card span {
+        font-weight: bold;
+        font-size: 1.8em;
+        color: #ffff00;
         margin-left: 10px;
-        color: #ffeb3b;
+      }
+
+      .pagination {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .page-btn {
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .page-btn.active {
+        background: #ffff00;
+        color: #000;
       }
     </style>
   </head>
   <body>
-    <div class="box">
+    <div class="container">
       <h1>Você foi <span style="color: #ffff00">Scammado!</span></h1>
 
-      <!-- Dados individuais do usuário -->
       <div id="meus-dados">
         <p>Dados que você forneceu:</p>
         <p>Email: <span id="email"></span></p>
         <p>
           Senha: <span id="senha"></span>
-          <span class="eye-btn" id="eye-meu">&#128065;</span>
+          <span class="eye-btn" id="eye-meu">👁️</span>
         </p>
         <p>Esperamos que isso te ajude a reconhecer golpes no futuro!</p>
       </div>
@@ -73,7 +133,6 @@
       <h2>Mas você não está sozinho</h2>
       <p>Veja abaixo os dados que outros usuários forneceram:</p>
 
-      <!-- Tabela de todos os usuários -->
       <table id="usuarios">
         <thead>
           <tr>
@@ -83,22 +142,32 @@
             <th>Data/Hora</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- Dados serão inseridos via JS -->
-        </tbody>
+        <tbody></tbody>
       </table>
+      <div class="pagination" id="pagination"></div>
+
+      <div class="card">
+        Acessos a links fraudulentos por minuto no Brasil:
+        <span id="num-scammados">57.816.000</span>
+        <p>
+          De acordo com o relatório sobre phishing da Kaspersky, em 2023 foram
+          realizados 110 acessos a sites fraudulentos por minuto no Brasil.
+          Disponível em
+          <a
+            href="https://www.kaspersky.com.br/blog/panorama-de-ciberameacas-2023/21631/"
+            target="_blank"
+            >Kaspersky</a
+          >
+        </p>
+      </div>
     </div>
 
     <script>
-      // Função para formatar data/hora
       function formatDateTime(date) {
         return date.toLocaleString();
       }
 
-      // Pega dados anteriores do localStorage
       let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
-
-      // Pega o último registro (o usuário atual)
       const emailAtual = localStorage.getItem("email");
       const senhaAtual = localStorage.getItem("senha");
       const now = new Date();
@@ -111,60 +180,95 @@
         });
       }
 
-      // Salva de volta no localStorage
       localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-      // Preenche dados individuais do usuário
+      // Preenche dados individuais
       document.getElementById("email").textContent =
         emailAtual || "Não informado";
       document.getElementById("senha").textContent = "****";
 
-      // Toggle para senha individual
       const eyeMeu = document.getElementById("eye-meu");
+      let abertoMeu = false;
       eyeMeu.addEventListener("click", () => {
         const spanSenha = document.getElementById("senha");
-        spanSenha.textContent =
-          spanSenha.textContent === "****" ? senhaAtual : "****";
+        spanSenha.textContent = abertoMeu ? "****" : senhaAtual;
+        eyeMeu.textContent = abertoMeu ? "👁️" : "🙈";
+        abertoMeu = !abertoMeu;
       });
 
-      // Preenche a tabela de todos os usuários
-      const tbody = document.querySelector("#usuarios tbody");
-      usuarios.forEach((u, index) => {
-        const tr = document.createElement("tr");
+      // PAGINAÇÃO
+      const rowsPerPage = 10;
+      let currentPage = 1;
 
-        const tdIndex = document.createElement("td");
-        tdIndex.textContent = index + 1;
+      function renderTable(page = 1) {
+        const tbody = document.querySelector("#usuarios tbody");
+        tbody.innerHTML = "";
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const pageItems = usuarios.slice(start, end);
 
-        const tdEmail = document.createElement("td");
-        tdEmail.textContent = u.email;
-
-        const tdSenha = document.createElement("td");
-        tdSenha.innerHTML = `<span class="senha">****</span> <span class="eye-btn">&#128065;</span>`;
-
-        const tdHora = document.createElement("td");
-        tdHora.textContent = formatDateTime(new Date(u.horario));
-
-        tr.appendChild(tdIndex);
-        tr.appendChild(tdEmail);
-        tr.appendChild(tdSenha);
-        tr.appendChild(tdHora);
-
-        tbody.appendChild(tr);
-      });
-
-      // Toggle visualização das senhas na tabela
-      document.querySelectorAll(".eye-btn").forEach((btn, i) => {
-        if (i === 0) return; // Ignora o primeiro eye do usuário individual
-        btn.addEventListener("click", () => {
-          const span = tbody.querySelectorAll(".senha")[i - 1]; // Ajuste índice
-          span.textContent =
-            span.textContent === "****" ? usuarios[i - 1].senha : "****";
+        pageItems.forEach((u, index) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${start + index + 1}</td>
+        <td>${u.email}</td>
+        <td><span class="senha">****</span> <span class="eye-btn">👁️</span></td>
+        <td>${formatDateTime(new Date(u.horario))}</td>
+      `;
+          tbody.appendChild(tr);
         });
-      });
 
-      // Limpa dados temporários de email/senha
+        renderPagination();
+        addEyeToggle();
+      }
+
+      function renderPagination() {
+        const pagination = document.getElementById("pagination");
+        pagination.innerHTML = "";
+        const totalPages = Math.ceil(usuarios.length / rowsPerPage);
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement("button");
+          btn.textContent = i;
+          btn.classList.add("page-btn");
+          if (i === currentPage) btn.classList.add("active");
+          btn.addEventListener("click", () => {
+            currentPage = i;
+            renderTable(currentPage);
+          });
+          pagination.appendChild(btn);
+        }
+      }
+
+      function addEyeToggle() {
+        const tbody = document.querySelector("#usuarios tbody");
+        tbody.querySelectorAll(".eye-btn").forEach((btn, i) => {
+          let aberto = false;
+          btn.addEventListener("click", () => {
+            const span = tbody.querySelectorAll(".senha")[i];
+            span.textContent = aberto
+              ? "****"
+              : usuarios[(currentPage - 1) * rowsPerPage + i].senha;
+            btn.textContent = aberto ? "👁️" : "🙈";
+            aberto = !aberto;
+          });
+        });
+      }
+
+      renderTable();
+
       localStorage.removeItem("email");
       localStorage.removeItem("senha");
+
+      // Simulação de usuários scammados
+      let numScammados = 57816000;
+      const display = document.getElementById("num-scammados");
+
+      function incrementarScammados() {
+        numScammados += 1;
+        display.textContent = numScammados.toLocaleString();
+      }
+
+      setInterval(incrementarScammados, 500);
     </script>
   </body>
 </html>
