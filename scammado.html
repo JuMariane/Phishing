@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Você foi Scammado!</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #ff4d4d;
+        color: #fff;
+        font-family: sans-serif;
+        text-align: center;
+      }
+      .box {
+        background: rgba(0, 0, 0, 0.5);
+        padding: 40px;
+        border-radius: 15px;
+      }
+      h1 {
+        font-size: 3em;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 1.5em;
+        margin: 10px 0;
+      }
+      span {
+        font-weight: bold;
+        color: #ffff00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h1>Você foi <span>Scammado!</span></h1>
+      <p>Dados que você forneceu:</p>
+      <p>Email: <span id="email"></span></p>
+      <p>Senha: <span id="senha"></span></p>
+      <p>Esperamos que isso te ajude a reconhecer golpes no futuro!</p>
+    </div>
+
+    <script>
+      // Pega os dados do localStorage
+      const email = localStorage.getItem("email");
+      const senha = localStorage.getItem("senha");
+
+      document.getElementById("email").textContent = email || "Não informado";
+      document.getElementById("senha").textContent = senha || "Não informado";
+    </script>
+  </body>
+</html>
