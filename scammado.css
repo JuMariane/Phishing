@@ -1,0 +1,108 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #ff4d4d, #ff5c5c);
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+h2 {
+  font-size: 2em;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.3);
+}
+
+p {
+  font-size: 1.2em;
+  line-height: 1.6;
+}
+
+#meus-dados {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  border-radius: 15px;
+  margin-top: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#usuarios {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th,
+td {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 12px;
+  font-size: 1em;
+}
+
+th {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+td {
+  text-align: center;
+}
+
+.eye-btn {
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 1.2em;
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 25px 30px;
+  border-radius: 15px;
+  margin-top: 40px;
+  font-size: 1.4em;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.card span {
+  font-weight: bold;
+  font-size: 1.8em;
+  color: #ffff00;
+  margin-left: 10px;
+}
+
+.pagination {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.page-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.page-btn.active {
+  background: #ffff00;
+  color: #000;
+}
