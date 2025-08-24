@@ -6,50 +6,165 @@
     <title>Você foi Scammado!</title>
     <style>
       body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
+        font-family: sans-serif;
         background: #ff4d4d;
         color: #fff;
-        font-family: sans-serif;
         text-align: center;
+        padding: 40px 20px;
       }
       .box {
         background: rgba(0, 0, 0, 0.5);
         padding: 40px;
         border-radius: 15px;
+        max-width: 900px;
+        margin: 0 auto;
       }
       h1 {
         font-size: 3em;
+        margin-bottom: 10px;
+      }
+      h2 {
+        font-size: 2em;
         margin-bottom: 20px;
       }
       p {
-        font-size: 1.5em;
+        font-size: 1.3em;
         margin: 10px 0;
       }
-      span {
-        font-weight: bold;
-        color: #ffff00;
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+      }
+      th,
+      td {
+        border: 1px solid #fff;
+        padding: 12px;
+        font-size: 1.1em;
+      }
+      th {
+        background: rgba(255, 255, 255, 0.2);
+      }
+      td {
+        text-align: center;
+      }
+      .eye-btn {
+        cursor: pointer;
+        margin-left: 10px;
+        color: #ffeb3b;
       }
     </style>
   </head>
   <body>
     <div class="box">
-      <h1>Você foi <span>Scammado!</span></h1>
-      <p>Dados que você forneceu:</p>
-      <p>Email: <span id="email"></span></p>
-      <p>Senha: <span id="senha"></span></p>
-      <p>Esperamos que isso te ajude a reconhecer golpes no futuro!</p>
+      <h1>Você foi <span style="color: #ffff00">Scammado!</span></h1>
+
+      <!-- Dados individuais do usuário -->
+      <div id="meus-dados">
+        <p>Dados que você forneceu:</p>
+        <p>Email: <span id="email"></span></p>
+        <p>
+          Senha: <span id="senha"></span>
+          <span class="eye-btn" id="eye-meu">&#128065;</span>
+        </p>
+        <p>Esperamos que isso te ajude a reconhecer golpes no futuro!</p>
+      </div>
+
+      <h2>Mas você não está sozinho</h2>
+      <p>Veja abaixo os dados que outros usuários forneceram:</p>
+
+      <!-- Tabela de todos os usuários -->
+      <table id="usuarios">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Email</th>
+            <th>Senha</th>
+            <th>Data/Hora</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Dados serão inseridos via JS -->
+        </tbody>
+      </table>
     </div>
 
     <script>
-      // Pega os dados do localStorage
-      const email = localStorage.getItem("email");
-      const senha = localStorage.getItem("senha");
+      // Função para formatar data/hora
+      function formatDateTime(date) {
+        return date.toLocaleString();
+      }
 
-      document.getElementById("email").textContent = email || "Não informado";
-      document.getElementById("senha").textContent = senha || "Não informado";
+      // Pega dados anteriores do localStorage
+      let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+
+      // Pega o último registro (o usuário atual)
+      const emailAtual = localStorage.getItem("email");
+      const senhaAtual = localStorage.getItem("senha");
+      const now = new Date();
+
+      if (emailAtual && senhaAtual) {
+        usuarios.push({
+          email: emailAtual,
+          senha: senhaAtual,
+          horario: now.toISOString(),
+        });
+      }
+
+      // Salva de volta no localStorage
+      localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
+      // Preenche dados individuais do usuário
+      document.getElementById("email").textContent =
+        emailAtual || "Não informado";
+      document.getElementById("senha").textContent = "****";
+
+      // Toggle para senha individual
+      const eyeMeu = document.getElementById("eye-meu");
+      eyeMeu.addEventListener("click", () => {
+        const spanSenha = document.getElementById("senha");
+        spanSenha.textContent =
+          spanSenha.textContent === "****" ? senhaAtual : "****";
+      });
+
+      // Preenche a tabela de todos os usuários
+      const tbody = document.querySelector("#usuarios tbody");
+      usuarios.forEach((u, index) => {
+        const tr = document.createElement("tr");
+
+        const tdIndex = document.createElement("td");
+        tdIndex.textContent = index + 1;
+
+        const tdEmail = document.createElement("td");
+        tdEmail.textContent = u.email;
+
+        const tdSenha = document.createElement("td");
+        tdSenha.innerHTML = `<span class="senha">****</span> <span class="eye-btn">&#128065;</span>`;
+
+        const tdHora = document.createElement("td");
+        tdHora.textContent = formatDateTime(new Date(u.horario));
+
+        tr.appendChild(tdIndex);
+        tr.appendChild(tdEmail);
+        tr.appendChild(tdSenha);
+        tr.appendChild(tdHora);
+
+        tbody.appendChild(tr);
+      });
+
+      // Toggle visualização das senhas na tabela
+      document.querySelectorAll(".eye-btn").forEach((btn, i) => {
+        if (i === 0) return; // Ignora o primeiro eye do usuário individual
+        btn.addEventListener("click", () => {
+          const span = tbody.querySelectorAll(".senha")[i - 1]; // Ajuste índice
+          span.textContent =
+            span.textContent === "****" ? usuarios[i - 1].senha : "****";
+        });
+      });
+
+      // Limpa dados temporários de email/senha
+      localStorage.removeItem("email");
+      localStorage.removeItem("senha");
     </script>
   </body>
 </html>
