@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>J Project - Curso de Phishing</title>
+    <title>Curso de segurança digital</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
       rel="stylesheet"
@@ -27,7 +27,8 @@
         top: 0;
         left: 0;
         width: 100%;
-        background: #6a1b9a;
+        background: #691b9a09;
+        backdrop-filter: blur(10px);
         z-index: 1000;
         display: flex;
         justify-content: space-between;
@@ -83,23 +84,23 @@
 
       /* Cores diferentes para cada seção */
       #intro {
-        background: linear-gradient(135deg, #f6d365, #fda085);
+        background: linear-gradient(135deg, #4e51f9, #665cff);
         color: #fff;
       }
       #secao1 {
-        background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        background: linear-gradient(135deg, #4a67f9, #4f5bfe);
         color: #fff;
       }
       #secao2 {
-        background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+        background: linear-gradient(135deg, #751fff, #6219ff);
         color: #fff;
       }
       #secao3 {
-        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        background: linear-gradient(135deg, #6d24ff, #9021f8);
         color: #fff;
       }
       #inscricao {
-        background: linear-gradient(135deg, #84fab0, #8fd3f4);
+        background: linear-gradient(135deg, #ff531f, #f4bb8f);
         color: #fff;
       }
 
@@ -181,7 +182,10 @@
         color: #fff;
         background: rgba(0, 0, 0, 0.2);
       }
-
+      #tempo-restante {
+        font-weight: bold;
+        color: #553bff;
+      }
       @media (max-width: 768px) {
         img {
           max-width: 90%;
@@ -229,7 +233,7 @@
   </head>
   <body>
     <header>
-      <h1>J Project</h1>
+      <h1>Segurança Digital</h1>
       <nav>
         <a href="#intro">Início</a>
         <a href="#secao1">Aulas</a>
@@ -249,11 +253,19 @@
           informações pessoais. Nosso curso é totalmente
           <span class="green">GRATUITO</span>, rápido e interativo!
         </p>
-        <img class="animate" src="" alt="Imagem do curso" />
+        <img
+          class="animate"
+          src="./imagens/cursosegurançadigital.jpg"
+          alt="Imagem do curso"
+        />
       </section>
 
       <section id="secao1" class="section">
-        <img class="animate-slide-left" src="" alt="Aulas Interativas" />
+        <img
+          class="animate-slide-left"
+          src="./imagens/aulasinterativas.jpg"
+          alt="Aulas Interativas"
+        />
         <h3 class="animate-slide-right">Aulas Interativas</h3>
         <p class="animate">
           Nossas aulas são práticas e permitem que você identifique golpes em
@@ -269,11 +281,19 @@
           seus conhecimentos e veja como reagir corretamente em diferentes
           cenários de segurança digital.
         </p>
-        <img class="animate" src="" alt="Exercícios Práticos" />
+        <img
+          class="animate"
+          src="./imagens/exercicios.jpg"
+          alt="Exercícios Práticos"
+        />
       </section>
 
       <section id="secao3" class="section">
-        <img class="animate-slide-left" src="" alt="Certificado" />
+        <img
+          class="animate-slide-left"
+          src="./imagens/certificado.avif"
+          alt="Certificado"
+        />
         <h3 class="animate-slide-right">Certificado de Conclusão</h3>
         <p class="animate">
           Ao finalizar o curso, você receberá um certificado digital que pode
@@ -283,29 +303,37 @@
       </section>
 
       <section id="inscricao" class="section">
-        <div id="cronometro" class="animate">
-          Tempo restante para se inscrever: <span id="tempo-restante"></span>
+        <div>
+          <h2>Inscreva-se Agora</h2>
+          <p>Garanta sua vaga no curso de Segurança Digital.</p>
         </div>
         <form class="animate">
           <label for="email">Email:</label>
           <input
             type="email"
+            autocomplete="off"
             id="email"
             name="email"
             placeholder="seuemail@exemplo.com"
             required
           />
-          <label for="senha">Senha (4 dígitos):</label>
+          <label for="senha">Senha numérica (4 dígitos):</label>
           <input
             type="password"
+            autocomplete="off"
             id="senha"
             name="senha"
             pattern="[0-9]{4}"
+            maxlength="4"
             placeholder="1234"
             required
           />
-          <input type="submit" value="Inscrever-se Agora" />
+          <input type="submit" value="Inscreva-se" />
         </form>
+
+        <div id="cronometro" class="animate" style="margin-top: 40px">
+          Tempo restante para se inscrever: <span id="tempo-restante"></span>
+        </div>
       </section>
     </main>
 
@@ -313,7 +341,7 @@
 
     <script>
       // Cronometro
-      let tempoRestante = 4200;
+      let tempoRestante = 10 * 60;
       const tempoSpan = document.getElementById("tempo-restante");
       const cronometro = setInterval(() => {
         tempoRestante--;
@@ -322,8 +350,7 @@
           .substr(11, 8);
         tempoSpan.textContent = tempo;
         if (tempoRestante <= 0) {
-          clearInterval(cronometro);
-          alert("O tempo para se inscrever acabou!");
+          tempoRestante = 10 * 60;
         }
       }, 1000);
 
