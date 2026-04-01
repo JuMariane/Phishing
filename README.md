@@ -40,10 +40,6 @@ O projeto utiliza um conjunto de tecnologias modernas para garantir precisão e 
 
 ---
 
-## ⚙️ Como Executar
+### 🌐 Demonstração Online
 
-Se você deseja testar o scanner localmente, siga os passos abaixo:
-
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/JuMariane/Phishing.git](https://github.com/JuMariane/Phishing.git)
+[![Acessar o Site](https://img.shields.io/badge/Acessar%20o%20Site-Clique%20Aqui-8ED1FC?style=for-the-badge&logo=vercel&logoColor=white)](https://phishing-inwq.vercel.app/)
