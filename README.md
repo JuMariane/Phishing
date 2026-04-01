@@ -1,13 +1,6 @@
 # 🛡️ Phishing Scanner | Experiência Imersiva
 
-![Wave Animation](COLE_AQUI_O_LINK_DA_SUA_ONDA_VERCEL)
 
-<p align="center">
-  <img src="https://img.shields.io/github/stars/JuMariane/Phishing?style=for-the-badge&color=F78DA7&labelColor=30363d" alt="Stars">
-  <img src="https://img.shields.io/github/forks/JuMariane/Phishing?style=for-the-badge&color=8ED1FC&labelColor=30363d" alt="Forks">
-  <img src="https://img.shields.io/github/issues/JuMariane/Phishing?style=for-the-badge&color=F78DA7&labelColor=30363d" alt="Issues">
-  <img src="https://img.shields.io/github/license/JuMariane/Phishing?style=for-the-badge&color=8ED1FC&labelColor=30363d" alt="License">
-</p>
 
 <p align="center">
   <strong>Uma ferramenta de conscientização focada em engenharia social.</strong>
